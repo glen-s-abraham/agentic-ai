@@ -1,0 +1,24 @@
+[project]
+name = "dbanalyzer"
+version = "0.1.0"
+description = "dbanalyzer using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.108.0,<1.0.0",
+    "psycopg[binary]>=3.2.9",
+]
+
+[project.scripts]
+dbanalyzer = "dbanalyzer.main:run"
+run_crew = "dbanalyzer.main:run"
+train = "dbanalyzer.main:train"
+replay = "dbanalyzer.main:replay"
+test = "dbanalyzer.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

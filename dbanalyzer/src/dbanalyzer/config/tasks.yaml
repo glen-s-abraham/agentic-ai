@@ -1,0 +1,35 @@
+pg_lookup:
+  description: >
+    perform a db lookup to gather all the tables and schemas for precise query generation.
+  expected_output: >
+    reuslts of the lookup.
+  agent: schemalookup
+  output_file: output/schemalookup.md
+
+generatequery:
+  description: >
+    Generate the queries—and execute them—to fulfill the following requirement: {requirement}.
+    Use the provided schema/lookup results to craft accurate, minimal SQL statements.
+    Execute each statement via the "Query runner" tool and compile all result sets.
+    Prefer read-only SELECTs; include ORDER BY for deterministic outputs; apply a reasonable LIMIT
+    when the requirement doesn’t need the full dataset and note it.
+  expected_output: >
+    query and their results.
+  agent: pgquerygenerator
+  context:
+    - pg_lookup
+  output_file: output/generatequery.md
+
+
+analyzedata:
+  description: >
+    Analyze the results of the database queries and generate a detailed report aligned
+    with the user's requirement: {requirement}. The report should be comprehensive and
+    precise to support informed, strategic decisions. Be precise.
+    Be precise.
+  expected_output: >
+    A detailed report with supporting data pertaining to the requirement.
+  agent: data_analyst
+  context:
+    - generatequery
+  output_file: output/analyzedata.md
